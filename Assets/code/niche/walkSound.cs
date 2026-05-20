@@ -35,10 +35,28 @@ public class walkSound : MonoBehaviour
         if(audioSource == null) {
             audioSource = GetComponent<AudioSource>();
         }
-        walkingTime += Time.deltaTime;
 
-        if(walkingTime > 1f ) {
+        if(player.player.walking && player.player.onFloor) {
+            walkingTime += Time.deltaTime;
+            if(walkingTime > 0.35f) {
+                switch (audioIndex) {
+                    case 0: {
+                        audioSource.PlayOneShot(step1);
+                        break;
+                    }
+                    case 1: {
+                        audioSource.PlayOneShot(step2);
+                        break;
+                    }
+                    case 2: {
+                        audioSource.PlayOneShot(step3);
+                        break;
+                    }
+                }
             audioSource.PlayOneShot(step1);
+            walkingTime = 0f;
+            }
+        } else {
             walkingTime = 0f;
         }
     }

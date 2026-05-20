@@ -32,6 +32,7 @@ public class playerController : MonoBehaviour
         public bool sneaking = false;
         public string animation = "";
         public bool mirror = false;
+        public bool walking = false;
     }
 
     public class Limbs {
@@ -287,9 +288,12 @@ public class playerController : MonoBehaviour
         }
 
         if (keys.a || keys.d) {
+            player.walking = true;
             if (player.onFloor) {
-                 player.mirror = mouseBehindPlayer;
+                player.mirror = mouseBehindPlayer;
             }
+        } else {
+            player.walking = false;
         }
 
         // && player.onFloor
