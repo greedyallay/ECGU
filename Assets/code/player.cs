@@ -33,6 +33,8 @@ public class playerController : MonoBehaviour
         public string animation = "";
         public bool mirror = false;
         public bool walking = false;
+        public bool attacking = false;
+        public float attackTime = 0f;
     }
 
     public class Limbs {
@@ -122,6 +124,8 @@ public class playerController : MonoBehaviour
 
         handleAnimations();
 
+        handleLogic();
+
         if(player.mirror) {
             transform.localScale = new Vector3(
                 playerScale.x * -1f,
@@ -164,6 +168,16 @@ public class playerController : MonoBehaviour
     private void LateUpdate() {
         mimicRig();
 
+    }
+
+    void handleLogic() {
+        if (player.attacking) {
+            player.attackTime += Time.deltaTime;
+            if (player.attackTime > .25f) {
+                player.attacking = false;
+                player.attackTime = 0;
+            }
+        }
     }
 
     void FixedUpdate() {
@@ -296,6 +310,12 @@ public class playerController : MonoBehaviour
             player.walking = false;
         }
 
+        if(Input.GetMouseButton(0)) {
+            if(!player.attacking) {
+                player.attacking = true;
+            }
+        }
+
         // && player.onFloor
         if(keys.w || keys.space) {
             if (!player.hasJumped && player.onFloor) {
@@ -329,6 +349,13 @@ public class playerController : MonoBehaviour
             player.animator.SetFloat("speed", -1);
         } else {
             player.animator.SetFloat("speed", 1);
+        }
+
+        if(player.attacking) {
+            player.animator.SetBool("attacking", true);
+        }
+        else {
+            player.animator.SetBool("attacking", false);
         }
 
         player.animator.SetBool("sitting", player.sneaking);
