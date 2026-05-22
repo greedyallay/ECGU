@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class whatarewedoing : MonoBehaviour
 {
+    public Transform crate;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,22 +15,9 @@ public class whatarewedoing : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (false) {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            GameObject obj = new GameObject("new");
 
-            obj.AddComponent<Rigidbody2D>();
-            obj.AddComponent<BoxCollider2D>();
-            SpriteRenderer sr = obj.AddComponent<SpriteRenderer>();
-
-            sr.sprite = Sprite.Create(
-                Texture2D.whiteTexture,
-                new Rect(0, 0, 2, 2),
-                new Vector2(0, 0)
-                );
-
-            obj.transform.position = mousePos;
-            }
+            Instantiate(crate).transform.position = mousePos;
         }
     }
 }
