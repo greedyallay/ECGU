@@ -2,7 +2,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class walkSound : MonoBehaviour
+public class Audio : MonoBehaviour
 {
     private class AudioClips {
         public AudioClip step1;
@@ -18,6 +18,8 @@ public class walkSound : MonoBehaviour
     public AudioClip step1;
     public AudioClip step2;
     public AudioClip step3;
+
+    public AudioClip meowDeath;
 
 
 
@@ -36,7 +38,13 @@ public class walkSound : MonoBehaviour
             audioSource = GetComponent<AudioSource>();
         }
 
-        if(player.player.walking && player.player.onFloor) {
+        if(Input.GetKeyDown(KeyCode.P)) {
+
+                        audioSource.PlayOneShot(meowDeath);
+        }
+
+
+        if (player.player.walking && player.player.onFloor) {
             walkingTime += Time.deltaTime;
             if(walkingTime > 0.35f) {
                 switch (audioIndex) {

@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class camera : MonoBehaviour
@@ -11,9 +12,19 @@ public class camera : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     public Vector2 MousePos;
 
+    private Rigidbody2D playerBody;
+
+    private bool pixelate = true;
+
+    public Vector2 gridSize;
+
     public RenderTexture renderTexture;
 
     public Transform toFollow;
+
+    private Camera cam;
+
+    private bool updateZoom = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,23 +32,48 @@ public class camera : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    void Update() {
+        if (cam == null) {
+            cam = GetComponent<Camera>();
+            Rigidbody2D playerBody = toFollow.GetComponent<Rigidbody2D>();
+        }
+        Vector3 mScreen = Input.mousePosition;
+        mScreen.z = -cam.transform.position.z;
+        MousePos = cam.ScreenToWorldPoint(mScreen);
         float scroll = Input.mouseScrollDelta.y;
-        if (scroll > 0) { zoom /= 1.1f; }
-        if(scroll < 0) { zoom *= 1.1f; }
+        if (scroll > 0) { zoom /= 1.1f; updateZoom = true; }
+        if (scroll < 0) { zoom *= 1.1f; updateZoom = true; }
 
-        renderTexture.Release();
-        renderTexture.width = (int)(512 * zoom);
-        renderTexture.height = (int)(288 * zoom);
-        renderTexture.Create();
 
-        Camera.main.orthographicSize = zoom * 5;
 
-        Rigidbody2D playerBody = toFollow.GetComponent<Rigidbody2D>();
+        if(updateZoom) {
+            gridSize.x = 512 * zoom;
+            gridSize.y = 288 * zoom;
+
+            renderTexture.Release();
+            renderTexture.width = (int)gridSize.x;
+            renderTexture.height = (int)gridSize.x;
+            renderTexture.Create();
+
+            cam.orthographicSize = zoom * 5;
+        }
+
+
+
+        if (Input.GetKeyDown(KeyCode.L)) {
+            pixelate = !pixelate;
+        }
+
 
         Vector3 targetPos = toFollow.position + offset + (Vector3)(MousePos - (Vector2)toFollow.position) / 10f;
-        transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, smoothTime);
+
+        Vector3 finalTarget = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, smoothTime);
+
+        //finalTarget.x = Mathf.Round(finalTarget.x / gridSize.x) * gridSize.x;
+        // finalTarget.y = Mathf.Round(finalTarget.y / gridSize.y) * gridSize.y;
+
+        transform.position = finalTarget;
+
+        updateZoom = false;
     }
 }
