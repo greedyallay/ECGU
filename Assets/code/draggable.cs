@@ -16,7 +16,6 @@ public class draggable : MonoBehaviour
     {
         if (isDragging) {
             target.target = new Vector2(0, 0);
-            print("geyyy");
             //transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         } else
         {
@@ -28,12 +27,10 @@ public class draggable : MonoBehaviour
     {
         isDragging = true;
         target = gameObject.AddComponent<TargetJoint2D>();
-            print("downie");
     }
 
     void OnMouseUp()
     {
         isDragging = false;
-            print("uppie");
     }
 }

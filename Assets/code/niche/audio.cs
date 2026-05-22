@@ -1,4 +1,5 @@
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -20,12 +21,15 @@ public class Audio : MonoBehaviour
     public AudioClip step3;
 
     public AudioClip meowDeath;
+    public Animator animator;
 
 
 
     private float walkingTime;
 
     private AudioSource audioSource;
+
+    private bool playedStepSound;
 
     void Start()
     {
@@ -34,14 +38,33 @@ public class Audio : MonoBehaviour
     void Update()
     {
         int audioIndex = UnityEngine.Random.Range(0, 2);
-        if(audioSource == null) {
+        playedStepSound = false;
+        if (audioSource == null) {
             audioSource = GetComponent<AudioSource>();
         }
 
         if(Input.GetKeyDown(KeyCode.P)) {
-
-                        audioSource.PlayOneShot(meowDeath);
+            audioSource.PlayOneShot(meowDeath);
         }
+        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+
+        //print(state.normalizedTime + "/" + state.length);
+
+        if(false) {
+            float progress = state.normalizedTime % state.length;
+
+            if(progress > 0.5f) {
+                if(!playedStepSound) {
+                    audioSource.PlayOneShot(step1);
+                    playedStepSound = true;
+                }
+            } else if(progress < 0.1f) {
+                playedStepSound = false;
+
+            }
+        }
+
+
 
 
         if (player.player.walking && player.player.onFloor) {

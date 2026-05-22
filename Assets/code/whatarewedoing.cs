@@ -29,7 +29,6 @@ public class whatarewedoing : MonoBehaviour
                 );
 
             obj.transform.position = mousePos;
-            print("woah i saw that");
             }
         }
     }

@@ -104,7 +104,6 @@ public class playerController : MonoBehaviour
     {
         if (player.body == null)
         {
-            print("houston, we have a problem.");
             player.body = GetComponent<Rigidbody2D>();
             player.box = GetComponent<BoxCollider2D>();
             player.animator = transform.Find("rig").GetComponent<Animator>();
@@ -160,7 +159,6 @@ public class playerController : MonoBehaviour
             print(angle);
         }
 
-        print(player.animation);
 
         //print(player.onFloor);
     }
@@ -197,8 +195,10 @@ public class playerController : MonoBehaviour
             0.05f,
             groundLayer
         );
-            
-        if(Physics2D.Raycast(
+
+        player.againstWall = 0;
+
+        if (Physics2D.Raycast(
             new Vector2(player.box.bounds.min.x, player.box.bounds.center.y),
             Vector2.left,
             distance,
@@ -214,8 +214,6 @@ public class playerController : MonoBehaviour
             groundLayer
         )) {
             player.againstWall = 1;
-        } else {
-            player.againstWall = 0;
         }
     }
 
@@ -241,7 +239,6 @@ public class playerController : MonoBehaviour
         limb.rightFootA = transform.Find("rightFootA");
         limb.rightFootB = transform.Find("rightFootB");
 
-        print(limb.head.transform.position);
     }
 
     void handleInput() {
@@ -268,7 +265,9 @@ public class playerController : MonoBehaviour
 
         player.sneaking = keys.s;
 
-        if(!player.sneaking) {
+        print(player.againstWall);
+
+        if(!player.sneaking && player.againstWall == 0) {
         //left n right shi
         if (keys.d && player.againstWall != 1) {
             if (player.body.linearVelocityX < maxMoveSpeed) {
@@ -337,7 +336,6 @@ public class playerController : MonoBehaviour
     }
 
     void handleAnimations() {
-        print(player.onFloor);
         if (player.onFloor) {
             player.animator.SetBool("running", keys.a || keys.d);
             player.animator.SetBool("falling", false);
@@ -346,9 +344,9 @@ public class playerController : MonoBehaviour
         }
 
         if((mouseBehindPlayer && !player.mirror) || (!mouseBehindPlayer && player.mirror)) {
-            player.animator.SetFloat("speed", -1);
+            player.animator.speed = -1.3f;
         } else {
-            player.animator.SetFloat("speed", 1);
+            player.animator.speed = 1.3f;
         }
 
         if(player.attacking) {
