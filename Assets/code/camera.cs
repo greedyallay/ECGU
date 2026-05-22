@@ -5,7 +5,7 @@ public class camera : MonoBehaviour
 {
 
 
-    float zoom = 1f;
+    public float zoom = 1f;
 
     private Vector3 offset = new Vector3(0f, 0f, -10f);
     public float smoothTime = 0.25f;

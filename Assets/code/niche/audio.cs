@@ -21,6 +21,7 @@ public class Audio : MonoBehaviour
     public AudioClip step3;
 
     public AudioClip meowDeath;
+    public AudioClip land;
     public Animator animator;
 
 
@@ -90,5 +91,9 @@ public class Audio : MonoBehaviour
         } else {
             walkingTime = 0f;
         }
+    }
+
+    public void landSound() {
+        audioSource.PlayOneShot(land);
     }
 }

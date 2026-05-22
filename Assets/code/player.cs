@@ -34,6 +34,8 @@ public class playerController : MonoBehaviour
         public bool mirror = false;
         public bool walking = false;
         public bool attacking = false;
+        public bool walkingBackwards = false;
+        public bool moving = false;
         public float attackTime = 0f;
     }
 
@@ -78,6 +80,8 @@ public class playerController : MonoBehaviour
 
     public Transform bone;
 
+    public new Audio audio;
+
     private Vector3 playerScale;
 
     private class Cache {
@@ -117,23 +121,14 @@ public class playerController : MonoBehaviour
 
         handleInput();
 
+        handleLogic();
+
         handlePlayerMovement();
 
         checkWalls();
 
         handleAnimations();
 
-        handleLogic();
-
-        if(player.mirror) {
-            transform.localScale = new Vector3(
-                playerScale.x * -1f,
-                playerScale.y,
-                playerScale.z
-            );
-        } else {
-            transform.localScale = playerScale;
-        }
 
         if(player.animation != cache.previousPlayerAnimation) {
             cache.previousPlayerAnimation = player.animation;
@@ -159,6 +154,22 @@ public class playerController : MonoBehaviour
             print(angle);
         }
 
+        if(Input.GetKeyDown("z")) {
+            audio.landSound();
+        }
+        if (player.mirror) {
+            transform.localScale = new Vector3(
+                playerScale.x * -1f,
+                playerScale.y,
+                playerScale.z
+            );
+        }
+        else {
+            transform.localScale = playerScale;
+        }
+
+
+
 
         //print(player.onFloor);
     }
@@ -176,6 +187,22 @@ public class playerController : MonoBehaviour
                 player.attackTime = 0;
             }
         }
+
+        player.moving = keys.a || keys.d;
+
+
+        //print("are we walking backwards? " + (player.walkingBackwards ? "yes" : "no"));
+        //print("are we looking backwards? " + (player.mirror ? "yes" : "no"));
+        //print("is the mouse behind my head? " + (mouseBehindPlayer ? "yes" : "no"));
+
+        if(player.moving) {
+            player.mirror = mousePos.x < transform.position.x;
+        }
+
+        player.walkingBackwards =
+            (player.mirror && keys.d) ||
+            (!player.mirror && keys.a);
+
     }
 
     void FixedUpdate() {
@@ -265,9 +292,7 @@ public class playerController : MonoBehaviour
 
         player.sneaking = keys.s;
 
-        print(player.againstWall);
-
-        if(!player.sneaking && player.againstWall == 0) {
+        if (!player.sneaking) {
         //left n right shi
         if (keys.d && player.againstWall != 1) {
             if (player.body.linearVelocityX < maxMoveSpeed) {
@@ -290,23 +315,6 @@ public class playerController : MonoBehaviour
                 }
             }
         }
-        }
-
-
-        if (mousePos.x < transform.position.x) {
-            mouseBehindPlayer = true;
-        }
-        else if (mousePos.x > transform.position.x) {
-            mouseBehindPlayer = false;
-        }
-
-        if (keys.a || keys.d) {
-            player.walking = true;
-            if (player.onFloor) {
-                player.mirror = mouseBehindPlayer;
-            }
-        } else {
-            player.walking = false;
         }
 
         if(Input.GetMouseButton(0)) {
@@ -337,19 +345,16 @@ public class playerController : MonoBehaviour
 
     void handleAnimations() {
         if (player.onFloor) {
+            //if(player.againstWall != 1)
             player.animator.SetBool("running", keys.a || keys.d);
             player.animator.SetBool("falling", false);
         } else {
             player.animator.SetBool("falling", true);
         }
 
-        if((mouseBehindPlayer && !player.mirror) || (!mouseBehindPlayer && player.mirror)) {
-            player.animator.speed = -1.3f;
-        } else {
-            player.animator.speed = 1.3f;
-        }
+        player.animator.SetBool("reversed", player.walkingBackwards);
 
-        if(player.attacking) {
+        if (player.attacking) {
             player.animator.SetBool("attacking", true);
         }
         else {
