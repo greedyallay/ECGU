@@ -11,6 +11,8 @@ public class camera : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     public Vector2 MousePos;
 
+    public RenderTexture renderTexture;
+
     public Transform toFollow;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -25,6 +27,11 @@ public class camera : MonoBehaviour
         float scroll = Input.mouseScrollDelta.y;
         if (scroll > 0) { zoom /= 1.1f; }
         if(scroll < 0) { zoom *= 1.1f; }
+
+        renderTexture.Release();
+        renderTexture.width = (int)(512 * zoom);
+        renderTexture.height = (int)(288 * zoom);
+        renderTexture.Create();
 
         Camera.main.orthographicSize = zoom * 5;
 
