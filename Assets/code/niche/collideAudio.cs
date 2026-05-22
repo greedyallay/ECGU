@@ -1,4 +1,3 @@
-using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -6,7 +5,7 @@ public class collideAudio : MonoBehaviour
 {
 
     public AudioClip collisionSound;
-    public new Collider2D collider;
+    public Collider2D collider;
     public AudioSource source;
 
     private float time;
