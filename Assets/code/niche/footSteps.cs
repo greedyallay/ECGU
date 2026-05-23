@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class Audio : MonoBehaviour
+public class footSteps : MonoBehaviour
 {
 
     public playerController player;
@@ -40,6 +40,7 @@ public class Audio : MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.P)) {
+            audioSource.volume = 1f;
             audioSource.PlayOneShot(meowDeath);
         }
         AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
@@ -65,6 +66,7 @@ public class Audio : MonoBehaviour
         if (player.player.walking && player.player.onFloor) {
             walkingTime += Time.deltaTime;
             if(walkingTime > 0.35f) {
+                audioSource.volume = 0.15f;
                 audioSource.PlayOneShot(step);
                 walkingTime = 0f;
             }

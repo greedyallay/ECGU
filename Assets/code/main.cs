@@ -13,11 +13,19 @@ public class main : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && false)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             Instantiate(crate).transform.position = mousePos;
         }
+    }
+
+    void Awake() {
+        if (false) {
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 0;
+        }
+
     }
 }

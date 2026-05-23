@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9ae295b94fbcaf444821813a2e01ad27
+guid: 348411897cd28df469e80efcff0c6480
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6120161320376352269
-    second: sword (1)_0
+      213: 4491258511774967838
+    second: door 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sword (1)_0
+      name: door 1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 68
-        height: 481
+        width: 306
+        height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3f1c1e284b1d01ba0800000000000000
-      internalID: -6120161320376352269
+      spriteID: e18ebcc12d7245e30800000000000000
+      internalID: 4491258511774967838
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      sword (1)_0: -6120161320376352269
+      door 1_0: 4491258511774967838
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

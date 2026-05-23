@@ -79,7 +79,7 @@ public class playerController : MonoBehaviour
 
     public Transform bone;
 
-    public new Audio audio;
+    public new footSteps audio;
 
     private Vector3 playerScale;
 
@@ -361,6 +361,8 @@ public class playerController : MonoBehaviour
         }
 
         player.animator.SetBool("sitting", player.sneaking);
+
+
 
         player.animator.SetBool("stopping", (keys.a && player.body.linearVelocityX > 0) || (keys.d && player.body.linearVelocityX < 0));
 

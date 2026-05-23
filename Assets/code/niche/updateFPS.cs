@@ -19,9 +19,4 @@ public class updateFPS : MonoBehaviour
         float fps = 1f / Time.unscaledDeltaTime;
         text.text = Mathf.Round(fps) + " fps";
     }
-
-    void Awake() {
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 0;
-    }
 }
