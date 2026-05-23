@@ -1347,12 +1347,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   player: {fileID: 89816184752381505}
   clip: []
-  step1: {fileID: 8300000, guid: 1214cb7c75270bb4286770a599675fed, type: 3}
-  step2: {fileID: 8300000, guid: c59fa3b78e1a6eb47ad9357f33d991aa, type: 3}
-  step3: {fileID: 8300000, guid: a3b90752473bfa24f9f08abf8f50ea15, type: 3}
+  step: {fileID: 0}
   meowDeath: {fileID: 8300000, guid: f3ef3c4ffb6c8bf45beae2daad22f7dc, type: 3}
   land: {fileID: 0}
   animator: {fileID: 4583722720944231627}
+  maxAudioPitchChange: 0
 --- !u!1 &4197949182265704107
 GameObject:
   m_ObjectHideFlags: 0
@@ -3286,7 +3285,7 @@ SpriteRenderer:
   m_Size: {x: 1.2, y: 3.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!60 &6194938899547468699
 PolygonCollider2D:
@@ -3544,7 +3543,7 @@ MonoBehaviour:
   m_InstanceId: 0
   m_ShadowShape2DComponent: {fileID: 1126022877273838540}
   m_ShadowShape2DProvider:
-    rid: 3166174004268499198
+    rid: 3166174013597941840
   m_ShadowCastingSource: 2
   m_ShadowMesh:
     m_Mesh: {fileID: 0}
@@ -3555,7 +3554,7 @@ MonoBehaviour:
     m_TrimEdge: 0.01
     m_FlipX: 0
     m_FlipY: 0
-    m_InitialTrim: 0
+    m_InitialTrim: 0.01
   m_CastingOption: 1
   m_PreviousTrimEdge: 0.01
   m_PreviousEdgeProcessing: 1
@@ -3564,7 +3563,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 3166174004268499198
+    - rid: 3166174013597941840
       type: {class: ShadowShape2DProvider_SpriteSkin, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data: 
 --- !u!1 &7570651172862995901

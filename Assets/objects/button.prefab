@@ -163,7 +163,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -51
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.5622641, g: 0.5622641, b: 0.5622641, a: 1}
@@ -220,7 +220,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -387,7 +387,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -50
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2530564911472380330, guid: a74a15599eee6dc45bae3bfd5edb85ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -413,3 +413,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   trigger: {fileID: 0}
   triggerSound: {fileID: 8300000, guid: ade7518bff97a8245b748476b10d0c56, type: 3}
+  secondaryTriggerSound: {fileID: 0}
