@@ -9,10 +9,16 @@ public class fluorescentLight : MonoBehaviour
     public float autoStartTime = 0f;
     public bool isBroken = false;
     public AudioClip onSound;
-
     public AudioClip toggleSound;
+    public AudioClip heatUpSound;
+
     private bool wasStarted = false;
     private float time = 0f;
+
+    private float maxFlickerTime = 0f;
+    private float flickerTime = 0f;
+    private bool heatingUp = true;
+    private bool hasHeatenUp = false;
 
     private bool wasDisabled = false;
 
@@ -29,6 +35,7 @@ public class fluorescentLight : MonoBehaviour
         if(light == null) {
             light = transform.Find("bulb").transform.Find("light").GetComponent<Light2D>();
             audio = transform.Find("sound").GetComponent<AudioSource>();
+            maxFlickerTime = Random.Range(0, 3);
         }
         if (!enabled && !wasDisabled) {
             light.enabled = false;
@@ -36,7 +43,7 @@ public class fluorescentLight : MonoBehaviour
             wasDisabled = true;
         }
         time += Time.deltaTime;
-        if(!wasStarted) {
+        if (!wasStarted) {
             if(autoStartTime == 0f) {
                 wasStarted = true;
             } else {
@@ -45,14 +52,23 @@ public class fluorescentLight : MonoBehaviour
                 }
             }
         }
+        if(enabled && heatingUp) {
+            flickerTime += Time.deltaTime;
+            if(flickerTime > maxFlickerTime) {
+                heatingUp = false;
+            } else {
+                hasHeatenUp = true;
+            }
+        }
         if (enabled && !wasStarted) {
             audio.enabled = true;
             light.enabled = true;
             wasStarted = true;
+            audio.PlayOneShot(heatUpSound);
             audio.PlayOneShot(onSound);
             audio.PlayOneShot(toggleSound);
         }
-        if (isBroken && enabled) {
+        if ((isBroken || heatingUp) && enabled) {
             if(Mathf.Round(Random.Range(0, 30)) == 0) {
                 if (Mathf.Round(Random.Range(0, 2)) == 0) {
                     if (!light.enabled) {
@@ -67,7 +83,12 @@ public class fluorescentLight : MonoBehaviour
                 }
 
             }
+        } else {
+            if(hasHeatenUp) {
+                light.enabled = true;
 
+            }
+            hasHeatenUp = false;
         }
 
     }

@@ -164,6 +164,7 @@ MonoBehaviour:
   isBroken: 0
   onSound: {fileID: 8300000, guid: fdf12a78be9fc96428d7646e21662316, type: 3}
   toggleSound: {fileID: 8300000, guid: 379701459bebd7f4e8bfbaa5e8657557, type: 3}
+  heatUpSound: {fileID: 8300000, guid: 07ab1961cf286f84a9000fe337580607, type: 3}
 --- !u!1 &4757064952407382921
 GameObject:
   m_ObjectHideFlags: 0

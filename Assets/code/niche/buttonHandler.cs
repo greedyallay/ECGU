@@ -25,10 +25,10 @@ public class buttonHandler : MonoBehaviour
 
         if (GetComponent<SpriteRenderer>().bounds.Contains(mousePos)) {
             if (Input.GetMouseButtonDown(0)) { 
+                    source.PlayOneShot(secondaryTriggerSound);
                 if(!isTriggered) {
                     trigger.isTriggered = true;
                     isTriggered = true;
-                    source.PlayOneShot(secondaryTriggerSound);
                     source.PlayOneShot(triggerSound);
                 }            
             }
