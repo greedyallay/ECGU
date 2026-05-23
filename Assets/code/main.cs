@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class whatarewedoing : MonoBehaviour
+public class main : MonoBehaviour
 {
     public Transform crate;
     // Start is called once before the first execution of Update after the MonoBehaviour is created

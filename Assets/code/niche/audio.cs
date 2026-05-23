@@ -5,24 +5,19 @@ using UnityEngine.Audio;
 
 public class Audio : MonoBehaviour
 {
-    private class AudioClips {
-        public AudioClip step1;
-        public AudioClip step2;
-        public AudioClip step3;
-    }
 
     public playerController player;
 
 
     public AudioClip[] clip;
 
-    public AudioClip step1;
-    public AudioClip step2;
-    public AudioClip step3;
+    public AudioClip step;
 
     public AudioClip meowDeath;
     public AudioClip land;
     public Animator animator;
+
+    public float maxAudioPitchChange = 0f;
 
 
 
@@ -56,7 +51,8 @@ public class Audio : MonoBehaviour
 
             if(progress > 0.5f) {
                 if(!playedStepSound) {
-                    audioSource.PlayOneShot(step1);
+                    audioSource.pitch = Random.Range(-maxAudioPitchChange, maxAudioPitchChange);
+                    audioSource.PlayOneShot(step);
                     playedStepSound = true;
                 }
             } else if(progress < 0.1f) {
@@ -67,25 +63,10 @@ public class Audio : MonoBehaviour
 
 
         if (player.player.walking && player.player.onFloor) {
-            print("tjos shpid; work");
             walkingTime += Time.deltaTime;
             if(walkingTime > 0.35f) {
-                switch (audioIndex) {
-                    case 0: {
-                        audioSource.PlayOneShot(step1);
-                        break;
-                    }
-                    case 1: {
-                        audioSource.PlayOneShot(step2);
-                        break;
-                    }
-                    case 2: {
-                        audioSource.PlayOneShot(step3);
-                        break;
-                    }
-                }
-            audioSource.PlayOneShot(step1);
-            walkingTime = 0f;
+                audioSource.PlayOneShot(step);
+                walkingTime = 0f;
             }
         } else {
             walkingTime = 0f;
