@@ -255,15 +255,6 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.6666667
         value: {x: 0, y: 0, z: -97.896}
-        inSlope: {x: 0, y: 0, z: 71.828545}
-        outSlope: {x: 0, y: 0, z: 71.828545}
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
-        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
-      - serializedVersion: 3
-        time: 0.75
-        value: {x: 0, y: 0, z: -86.8}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -273,8 +264,8 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.96666664
         value: {x: 0, y: 0, z: -117.418}
-        inSlope: {x: 0, y: 0, z: -272.15994}
-        outSlope: {x: 0, y: 0, z: -272.15994}
+        inSlope: {x: 0, y: 0, z: -146.41495}
+        outSlope: {x: 0, y: 0, z: -146.41495}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -1504,15 +1495,6 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.75
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
         time: 0.96666664
         value: 0
         inSlope: 0
@@ -1571,15 +1553,6 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.6666667
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.75
         value: 0
         inSlope: 0
         outSlope: 0
@@ -1647,15 +1620,6 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.6666667
         value: -97.896
-        inSlope: 71.828545
-        outSlope: 71.828545
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.75
-        value: -86.8
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -1665,8 +1629,8 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.96666664
         value: -117.418
-        inSlope: -272.15994
-        outSlope: -272.15994
+        inSlope: -146.41495
+        outSlope: -146.41495
         tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
@@ -3020,7 +2984,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: body-rig/leftLegA
+    path: body-rig/rightLegA/rightLegB/rightFootA
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -3032,7 +2996,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: body-rig/leftLegA
+    path: body-rig/rightLegA/rightLegB/rightFootA
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -3044,7 +3008,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: body-rig/leftLegA
+    path: body-rig/rightLegA/rightLegB/rightFootA
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -3200,7 +3164,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: body-rig/rightLegA/rightLegB/rightFootA
+    path: body-rig/leftLegA
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -3212,7 +3176,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: body-rig/rightLegA/rightLegB/rightFootA
+    path: body-rig/leftLegA
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -3224,7 +3188,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: body-rig/rightLegA/rightLegB/rightFootA
+    path: body-rig/leftLegA
     classID: 4
     script: {fileID: 0}
     flags: 0

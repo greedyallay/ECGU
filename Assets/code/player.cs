@@ -35,7 +35,6 @@ public class playerController : MonoBehaviour
         public bool walking = false;
         public bool attacking = false;
         public bool walkingBackwards = false;
-        public bool moving = false;
         public float attackTime = 0f;
     }
 
@@ -188,14 +187,11 @@ public class playerController : MonoBehaviour
             }
         }
 
-        player.moving = keys.a || keys.d;
-
-
         //print("are we walking backwards? " + (player.walkingBackwards ? "yes" : "no"));
         //print("are we looking backwards? " + (player.mirror ? "yes" : "no"));
         //print("is the mouse behind my head? " + (mouseBehindPlayer ? "yes" : "no"));
 
-        if(player.moving) {
+        if(player.walking) {
             player.mirror = mousePos.x < transform.position.x;
         }
 
@@ -291,6 +287,9 @@ public class playerController : MonoBehaviour
         }
 
         player.sneaking = keys.s;
+
+        player.walking = keys.a || keys.d;
+
 
         if (!player.sneaking) {
         //left n right shi

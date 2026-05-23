@@ -66,9 +66,8 @@ public class Audio : MonoBehaviour
         }
 
 
-
-
         if (player.player.walking && player.player.onFloor) {
+            print("tjos shpid; work");
             walkingTime += Time.deltaTime;
             if(walkingTime > 0.35f) {
                 switch (audioIndex) {

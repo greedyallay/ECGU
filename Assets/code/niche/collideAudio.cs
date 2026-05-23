@@ -5,7 +5,6 @@ public class collideAudio : MonoBehaviour
 {
 
     public AudioClip collisionSound;
-    public Collider2D collider;
     public AudioSource source;
 
     private float time;
