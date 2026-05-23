@@ -7,8 +7,10 @@ public class fluorescentLight : MonoBehaviour
 
     public bool enabled = false;
     public float autoStartTime = 0f;
-
+    public bool isBroken = false;
     public AudioClip onSound;
+
+    public AudioClip toggleSound;
     private bool wasStarted = false;
     private float time = 0f;
 
@@ -43,12 +45,30 @@ public class fluorescentLight : MonoBehaviour
                 }
             }
         }
-        if(enabled && !wasStarted) {
-            print("i am ONNN");
+        if (enabled && !wasStarted) {
             audio.enabled = true;
             light.enabled = true;
             wasStarted = true;
             audio.PlayOneShot(onSound);
+            audio.PlayOneShot(toggleSound);
         }
+        if (isBroken && enabled) {
+            if(Mathf.Round(Random.Range(0, 30)) == 0) {
+                if (Mathf.Round(Random.Range(0, 2)) == 0) {
+                    if (!light.enabled) {
+                        audio.PlayOneShot(onSound);
+                    }
+                    audio.enabled = true;
+                    light.enabled = true;
+
+                } else {
+                    //audio.enabled = false;
+                    light.enabled = false;
+                }
+
+            }
+
+        }
+
     }
 }
