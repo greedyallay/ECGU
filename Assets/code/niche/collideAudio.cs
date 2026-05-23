@@ -6,6 +6,7 @@ public class collideAudio : MonoBehaviour
 
     public AudioClip collisionSound;
     public AudioSource source;
+    public float volume = 1f;
 
     private float time;
 
@@ -14,8 +15,6 @@ public class collideAudio : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
-
 
     }
 
@@ -34,7 +33,7 @@ public class collideAudio : MonoBehaviour
         //make it so that only if this object has a higher speed than the other one it plays the audio to prevent doublt shit
         float impact = collision.relativeVelocity.magnitude;
         print(impact/10);
-        source.volume = impact / 20;
+        source.volume = (impact / 20) * volume;
         source.PlayOneShot(collisionSound);
 
 
