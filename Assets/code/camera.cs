@@ -12,6 +12,8 @@ public class camera : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     public Vector2 MousePos;
 
+    public bool doFollow = true;
+
     private Rigidbody2D playerBody;
 
     private bool pixelate = true;
@@ -72,7 +74,9 @@ public class camera : MonoBehaviour
         //finalTarget.x = Mathf.Round(finalTarget.x / gridSize.x) * gridSize.x;
         // finalTarget.y = Mathf.Round(finalTarget.y / gridSize.y) * gridSize.y;
 
-        transform.position = finalTarget;
+        if(doFollow) {
+            transform.position = finalTarget;
+        }
 
         updateZoom = false;
     }
