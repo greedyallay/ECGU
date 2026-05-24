@@ -22,7 +22,7 @@ public class main : MonoBehaviour
     }
 
     void Awake() {
-        if (false) {
+        if (true) {
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 0;
         }
