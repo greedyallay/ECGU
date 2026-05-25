@@ -21,7 +21,7 @@ public class lookAt : MonoBehaviour
     {
         MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (player.player.mirror) {
-            MousePos.x = 0 - MousePos.x;
+            MousePos.x = body.position.x - (MousePos.x - body.position.x);
         }
         target = MousePos;
         Vector2 dir = target - body.position;
