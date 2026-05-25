@@ -57,6 +57,8 @@ public class playerController : MonoBehaviour
         public Transform leftFootB;
     }
 
+    public float moveSpeedMultiplier = 1f;
+
     float originalRot;
 
     public int sixtynine = 69;
@@ -72,6 +74,7 @@ public class playerController : MonoBehaviour
     public float movementSpeed = 10f;
     public float maxMoveSpeed = 50f;
     public float jumpStrength = 1f;
+
 
     private Vector2 mousePos;
 
@@ -296,9 +299,9 @@ public class playerController : MonoBehaviour
         //ported from javascript version of evil cat game
         if (!allowMove) { return; }
         if (player.onFloor) {
-            player.body.linearVelocityX *= (float)Math.Pow(0.1, Time.deltaTime);
+            player.body.linearVelocityX *= (float)Math.Pow(0.1 * moveSpeedMultiplier, Time.deltaTime);
         } else {
-           player.body.linearVelocityX *= (float)Math.Pow(0.8, Time.deltaTime); //can be changed to 1.3 or 1.1 but would be annoying
+           player.body.linearVelocityX *= (float)Math.Pow(0.8 * moveSpeedMultiplier, Time.deltaTime); //can be changed to 1.3 or 1.1 but would be annoying
         }
 
         player.sneaking = keys.s;
@@ -309,23 +312,23 @@ public class playerController : MonoBehaviour
         if (!player.sneaking) {
         //left n right shi
         if (keys.d && player.againstWall != 1) {
-            if (player.body.linearVelocityX < maxMoveSpeed) {
+            if (player.body.linearVelocityX < maxMoveSpeed* moveSpeedMultiplier) {
                 if (player.onFloor) {
-                    player.body.linearVelocityX += movementSpeed * Time.deltaTime;
+                    player.body.linearVelocityX += movementSpeed * moveSpeedMultiplier * Time.deltaTime;
                 }
                 else {
-                    player.body.linearVelocityX += movementSpeed * Time.deltaTime;
+                    player.body.linearVelocityX += movementSpeed * moveSpeedMultiplier * Time.deltaTime;
                 }
             }
         }
 
         if (keys.a && player.againstWall != -1) {
-            if (player.body.linearVelocityX > 0-maxMoveSpeed) {
+            if (player.body.linearVelocityX > 0-maxMoveSpeed * moveSpeedMultiplier) {
                 if (player.onFloor) {
-                    player.body.linearVelocityX -= movementSpeed * Time.deltaTime;
+                    player.body.linearVelocityX -= movementSpeed * moveSpeedMultiplier * Time.deltaTime;
                 }
                 else {
-                    player.body.linearVelocityX -= movementSpeed * Time.deltaTime;
+                    player.body.linearVelocityX -= movementSpeed * moveSpeedMultiplier * Time.deltaTime;
                 }
             }
         }
@@ -363,6 +366,7 @@ public class playerController : MonoBehaviour
                 //if(player.againstWall != 1)
                 player.animator.SetBool("running", keys.a || keys.d);
                 player.animator.SetBool("falling", false);
+                player.animator.speed = 1.3f * moveSpeedMultiplier;
             } else {
                 player.animator.SetBool("falling", true);
             }
@@ -383,6 +387,7 @@ public class playerController : MonoBehaviour
             player.animator.SetBool("stopping", (keys.a && player.body.linearVelocityX > 0) || (keys.d && player.body.linearVelocityX < 0));
         } else {
             player.animator.SetBool("running", false);
+            player.animator.speed = 1f;
         }
 
 
@@ -455,7 +460,7 @@ public class playerController : MonoBehaviour
 
         Animator animator = rig.GetComponent<Animator>();
         //animator.Play(animation);
-        animator.speed = 1.3f;
+        animator.speed = 1.3f * moveSpeedMultiplier;
         return;
 
     }
