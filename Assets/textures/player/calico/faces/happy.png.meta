@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: e34481e03ef4fe342a89da614a106632
+guid: c495e59d5a1e4644989c0c513b8b06e5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3017205886659203319
-    second: shocked_0
-  - first:
-      213: 4780575277900411937
-    second: shocked_1
+      213: 6266176060360064
+    second: happy_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -112,27 +109,40 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: shocked_0
+      name: happy_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 62
-        height: 99
+        height: 106
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7f01a80a4c44fd920800000000000000
-      internalID: 3017205886659203319
+      spriteID: 0858d2ecd03461000800000000000000
+      internalID: 6266176060360064
       vertices: []
       indices: 
       edges: []
@@ -141,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 3b6e8e6853114974aa4a389b0381110f
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -151,8 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      shocked_0: 3017205886659203319
-      shocked_1: 4780575277900411937
+      happy_0: 6266176060360064
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

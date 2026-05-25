@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3ce501cfe30c5cd4285fde380f8f13f4
+guid: cf1f4f2b3e93ce142afe4d7ef2e28539
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1418263790547870025
-    second: labCoat 1_0
+      213: -5544336463580313496
+    second: arma_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: labCoat 1_0
+      name: arma_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 155
-        height: 271
+        width: 77
+        height: 176
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 941a769376faea310800000000000000
-      internalID: 1418263790547870025
+      spriteID: 868cc0d8c5f8e03b0800000000000000
+      internalID: -5544336463580313496
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      labCoat 1_0: 1418263790547870025
+      arma_0: -5544336463580313496
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -95,6 +95,13 @@ public class playerController : MonoBehaviour
     public Player player = new Player();
     public Limbs limb = new Limbs();
 
+    public bool preventFirstMovement;
+    public float movementCooldown = 4f;
+
+    private float timer = 0f;
+
+    public bool allowMove = true;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -105,6 +112,7 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timer += Time.deltaTime;
         if (player.body == null)
         {
             player.body = GetComponent<Rigidbody2D>();
@@ -184,6 +192,12 @@ public class playerController : MonoBehaviour
             if (player.attackTime > .25f) {
                 player.attacking = false;
                 player.attackTime = 0;
+            }
+        }
+
+        if(preventFirstMovement) {
+            if(timer > movementCooldown) {
+                allowMove = true;
             }
         }
 
@@ -280,6 +294,7 @@ public class playerController : MonoBehaviour
 
     void handlePlayerMovement() {
         //ported from javascript version of evil cat game
+        if (!allowMove) { return; }
         if (player.onFloor) {
             player.body.linearVelocityX *= (float)Math.Pow(0.1, Time.deltaTime);
         } else {
@@ -343,28 +358,33 @@ public class playerController : MonoBehaviour
     }
 
     void handleAnimations() {
-        if (player.onFloor) {
-            //if(player.againstWall != 1)
-            player.animator.SetBool("running", keys.a || keys.d);
-            player.animator.SetBool("falling", false);
+        if(allowMove) {
+            if (player.onFloor) {
+                //if(player.againstWall != 1)
+                player.animator.SetBool("running", keys.a || keys.d);
+                player.animator.SetBool("falling", false);
+            } else {
+                player.animator.SetBool("falling", true);
+            }
+
+            player.animator.SetBool("reversed", player.walkingBackwards);
+
+            if (player.attacking) {
+                player.animator.SetBool("attacking", true);
+            }
+            else {
+                player.animator.SetBool("attacking", false);
+            }
+
+            player.animator.SetBool("sitting", player.sneaking);
+
+
+
+            player.animator.SetBool("stopping", (keys.a && player.body.linearVelocityX > 0) || (keys.d && player.body.linearVelocityX < 0));
         } else {
-            player.animator.SetBool("falling", true);
+            player.animator.SetBool("running", false);
         }
 
-        player.animator.SetBool("reversed", player.walkingBackwards);
-
-        if (player.attacking) {
-            player.animator.SetBool("attacking", true);
-        }
-        else {
-            player.animator.SetBool("attacking", false);
-        }
-
-        player.animator.SetBool("sitting", player.sneaking);
-
-
-
-        player.animator.SetBool("stopping", (keys.a && player.body.linearVelocityX > 0) || (keys.d && player.body.linearVelocityX < 0));
 
         //print(player.body.linearVelocityX);
     }

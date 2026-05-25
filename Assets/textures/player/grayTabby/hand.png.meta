@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3ce501cfe30c5cd4285fde380f8f13f4
+guid: 3c78da4b6938ec641a75c19540b9e646
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1418263790547870025
-    second: labCoat 1_0
+      213: 8403215288983880825
+    second: hand_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: labCoat 1_0
+      name: hand_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 155
-        height: 271
+        width: 38
+        height: 55
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 941a769376faea310800000000000000
-      internalID: 1418263790547870025
+      spriteID: 974040f78c73e9470800000000000000
+      internalID: 8403215288983880825
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      labCoat 1_0: 1418263790547870025
+      hand_0: 8403215288983880825
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
