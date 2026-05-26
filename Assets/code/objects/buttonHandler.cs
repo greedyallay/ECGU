@@ -9,6 +9,8 @@ public class buttonHandler : MonoBehaviour
 
     private bool isTriggered = false;
 
+    public int buttonAction = 0;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,7 +29,16 @@ public class buttonHandler : MonoBehaviour
             if (Input.GetMouseButtonDown(0)) { 
                     source.PlayOneShot(secondaryTriggerSound);
                 if(!isTriggered) {
-                    trigger.isTriggered = true;
+                    switch(buttonAction) {
+                        case 0: {
+                            trigger.isTriggered = true;
+                            break;
+                        }
+                        case 1: {
+                            trigger.isTriggered = false;
+                            break;
+                        }
+                    }
                     isTriggered = true;
                     source.PlayOneShot(triggerSound);
                 }            

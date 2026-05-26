@@ -1,11 +1,10 @@
 using UnityEngine;
 
-public class doorHandler : MonoBehaviour
-{
+public class doorHandler : MonoBehaviour {
     public bool isTriggered = false;
 
     public float speed = 1f;
-    public float maxHeight = 10f;
+    public float distance = 10f;
 
     public AudioClip doorSlide;
     public AudioClip doorStop;
@@ -14,35 +13,70 @@ public class doorHandler : MonoBehaviour
 
     private float yPos;
     private float time;
-    private float distance;
     private float pos;
     private bool hasTriggered = false;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    private bool previousState = false;
+
+    private bool internallyTriggered = false;
+
+    void Start() {
         yPos = transform.position.y;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(source == null) {
+    //it turns out that
+    // MAKING DOORS IS A FUCKING NIGHTMARE NEVER DO IT PLEASE SAVE ME FROM THIS NIGHTMARE
+    void Update() {
+        if (source == null) {
             source = transform.Find("audio").GetComponent<AudioSource>();
         }
-        if(isTriggered) {
-            if(!hasTriggered) {
-                distance = maxHeight - yPos;
+        if(isTriggered != previousState) {
+            print("changing states");
+            internallyTriggered = true;
+            previousState = isTriggered;
+        }
+        print("ïstriggered " + isTriggered);
+        print("internallytriggered " + internallyTriggered);
+        if (!internallyTriggered) { return; }
+
+        if (isTriggered) {
+            if (!hasTriggered) {
+                hasTriggered = true;
+                yPos = transform.position.y;
                 source.PlayOneShot(doorSlide);
+                time = 0f;
             }
-            hasTriggered = true;
+
             time += Time.deltaTime;
-            pos = (distance / (1 / speed)) * time;
+            pos = Mathf.Min(distance, speed * time);
             transform.position = new Vector2(transform.position.x, pos + yPos);
-            if(pos > maxHeight) {
-                isTriggered = false;
+
+            if (pos >= distance) {
+                pos = distance;
+                internallyTriggered = false;
+                hasTriggered = false;
                 source.PlayOneShot(doorStop);
             }
         }
-        
+        else {
+            print("why");
+
+            if (!hasTriggered) {
+                hasTriggered = true;
+                source.PlayOneShot(doorSlide);
+                time = 0f;
+            }
+
+            time += Time.deltaTime;
+
+            pos = Mathf.Max(-distance, -speed * time);
+            transform.position = new Vector2(transform.position.x, pos + yPos + distance);
+
+            if (pos <= -distance) {
+                pos = -distance;
+                hasTriggered = false;
+                internallyTriggered = false;
+                source.PlayOneShot(doorStop);
+            }
+        }
     }
 }
