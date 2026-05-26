@@ -71,6 +71,8 @@ public class doorHandler : MonoBehaviour {
             pos = Mathf.Max(-distance, -speed * time);
             transform.position = new Vector2(transform.position.x, pos + yPos + distance);
 
+            speed *= 1.015f;
+
             if (pos <= -distance) {
                 pos = -distance;
                 hasTriggered = false;
