@@ -38,6 +38,10 @@ public class buttonHandler : MonoBehaviour
                             trigger.isTriggered = false;
                             break;
                         }
+                        case 2: {
+                            trigger.isTriggered = !trigger.isTriggered;
+                            break;
+                        }
                     }
                     isTriggered = true;
                     source.PlayOneShot(triggerSound);

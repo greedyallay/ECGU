@@ -36,6 +36,7 @@ public class playerController : MonoBehaviour
         public bool attacking = false;
         public bool walkingBackwards = false;
         public float attackTime = 0f;
+        public bool firing = false;
     }
 
     public class Limbs {
@@ -61,8 +62,6 @@ public class playerController : MonoBehaviour
 
     float originalRot;
 
-    public int sixtynine = 69;
-
     private float velocityDamping = 1;
 
     private float defaultPlayerMass = 10f;
@@ -74,6 +73,8 @@ public class playerController : MonoBehaviour
     public float movementSpeed = 10f;
     public float maxMoveSpeed = 50f;
     public float jumpStrength = 1f;
+
+    public ak47 weapon;
 
 
     private Vector2 mousePos;
@@ -105,6 +106,11 @@ public class playerController : MonoBehaviour
 
     public bool allowMove = true;
 
+    public bool hasRifle = true;
+
+    private bool previousFiringState = false;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -133,7 +139,7 @@ public class playerController : MonoBehaviour
 
         handleLogic();
 
-        handlePlayerMovement();
+        handlePlayerControls();
 
         checkWalls();
 
@@ -293,9 +299,16 @@ public class playerController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.S)) { keys.s = false; }
         if (Input.GetKeyUp(KeyCode.D)) { keys.d = false; }
         if (Input.GetKeyUp(KeyCode.Space)) { keys.space = false; }
+
+        if (Input.GetMouseButtonDown(0) && hasRifle) {
+            player.firing = true;
+        }
+        if (Input.GetMouseButtonUp(0) && hasRifle) {
+            player.firing = false;
+        }
     }
 
-    void handlePlayerMovement() {
+    void handlePlayerControls() {
         //ported from javascript version of evil cat game
         if (!allowMove) { return; }
         if (player.onFloor) {
@@ -351,6 +364,20 @@ public class playerController : MonoBehaviour
                 player.hasJumped = false;
             }
         }
+
+        if(player.firing) {
+            if(!previousFiringState) {
+                player.animator.CrossFade("riflefire", .1f);
+                weapon.isActive = true;
+
+            }
+        } else if (previousFiringState) {
+            player.animator.CrossFade("idle", .5f);
+            weapon.isActive = false;
+
+        }
+
+        previousFiringState = player.firing;
     }
 
     void setChildLayers(string layerName) {
@@ -495,12 +522,16 @@ public class playerController : MonoBehaviour
         //doRotate = trues;
     }
 
-    void amputate(string name) {
+    public void amputate(string name) {
+        name = "head";
         print("og no!");
-        Transform obj = transform.Find(name);
-        Destroy(obj);
+        //Transform obj = transform.Find("rig").transform.Find("body-rig").transform.Find(name);
+        Transform limbBone = transform.Find("rig").transform.Find("body-rig").transform.Find(name);
+        Transform limb = transform.Find("rig").transform.Find(name).transform.Find("texture");
+        limb.GetComponent<Rigidbody2D>().simulated = true;
+        limb.GetComponent<CircleCollider2D>().enabled = true;
+        Destroy(limbBone.gameObject);
     }
-
     void setFaceTexture(string name) {
         print("setting face texture to " + name);
         return;

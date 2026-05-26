@@ -20,12 +20,15 @@ public class dialog : MonoBehaviour
 
     private int oldLength;
 
+    public bool finishedTyping = false;
+
     public AudioClip tick;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         
     }
+    //dot forget to add the sliding in animation for the dialog thingy thank you
 
     // Update is called once per frame
     void Update()
@@ -36,13 +39,20 @@ public class dialog : MonoBehaviour
             sound = transform.Find("sound").GetComponent<AudioSource>();
         }
 
-        display(fullName, fullText.Substring(0, (int)dialogWriteProgress), textSide);
-        dialogWriteProgress += Time.deltaTime *10 * dialogSpeed;
+        if(!finishedTyping) {
+            display(fullName, fullText.Substring(0, (int)dialogWriteProgress), textSide);
+            dialogWriteProgress += Time.deltaTime * 10 * dialogSpeed;
+        }
+
 
         if((int)dialogWriteProgress > oldLength) {
             sound.pitch = Random.Range(0.8f, 1.2f);
             sound.PlayOneShot(tick);
             oldLength = (int)dialogWriteProgress;
+        }
+
+        if((int)dialogWriteProgress > fullText.Length) {
+            finishedTyping = true;
         }
 ;
         //dialogs should slide in from the bottom rather quickly
@@ -52,6 +62,7 @@ public class dialog : MonoBehaviour
     }
 
     public void talk(string text, string name, string face, bool side) {
+        finishedTyping = false;
         print("we are SO TALKING RIGHT NOW");
         fullName = name;
         fullText = text;

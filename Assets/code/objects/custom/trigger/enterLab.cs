@@ -16,9 +16,13 @@ public class enterLab : MonoBehaviour
     public Sprite siaCry;
     public Sprite siaSmirk;
 
+    public AudioClip lightOn;
+
     public Transform flashlight;
 
     private Animator anim;
+
+    public AudioSource music;
 
     private int dialogProgress = 0;
     private bool dialogStarted  = false;
@@ -34,6 +38,11 @@ public class enterLab : MonoBehaviour
     private float netTime = 0f;
 
     private bool wasTriggered = false;
+
+    public bool canSkip = true;
+    public bool waitForFinish = false;
+
+    private bool fadeOutMusic = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -70,11 +79,16 @@ public class enterLab : MonoBehaviour
                 anim.CrossFade("idle", .5f);
                 lastTime = 0f;
                 equipFlashlight = false;
+                
+                //dialogProgress++;
+               //showDialog(dialogProgress);
             }
         }
         if (animateScared) {
             if (lastTime == 0f) {
+                print("som,ething very weird just happened");
                 lastTime = time;
+                anim.speed = 1f;
                 anim.CrossFade("scared", .5f);
                 flashlight.gameObject.GetComponent<Rigidbody2D>().simulated = true;
                 flashlight.gameObject.GetComponent<PolygonCollider2D>().enabled = true;
@@ -82,9 +96,18 @@ public class enterLab : MonoBehaviour
             }
             netTime = time - lastTime;
             if (netTime > 2f) {
+                anim.speed = 1.3f;
                 anim.CrossFade("idle", .5f);
-                lastTime = 0f;
                 animateScared = false;
+            }
+        }
+
+        if(waitForFinish) {
+            return;
+            if(dialog.finishedTyping) {
+                dialogProgress++;
+                showDialog(dialogProgress);
+                waitForFinish = false;
             }
         }
     }
@@ -101,7 +124,7 @@ public class enterLab : MonoBehaviour
     }
 
     void handleDialog() {
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0) && canSkip) {
             showDialog(dialogProgress);
             dialogProgress++;
         }
@@ -112,6 +135,7 @@ public class enterLab : MonoBehaviour
         switch (progress) {
             case 0: {
                     dialog.talk("hello", "siamie", "siamie-neutral", false);
+                    music.Play();
                     break;
                 }
             case 1: {
@@ -127,13 +151,14 @@ public class enterLab : MonoBehaviour
                     break;
                 }
             case 4: {
-                    dialog.talk("...", "siamie", "siamie-neutral", false);
+                    dialog.talk("...                                      ", "siamie", "siamie-neutral", false);
+                    //canSkip = false;
                     equipFlashlight = true;
                     break;
                 }
             case 5: {
                     dialog.talk("you know how I've been experimenting with different serums lately?", "gray tabby", "siamie-neutral", true);
-                    anim.CrossFade("idle", .5f);
+                    //anim.CrossFade("idle", .5f);
 
                     break;
                 }
@@ -148,7 +173,7 @@ public class enterLab : MonoBehaviour
                     break;
                 }
             case 8: {
-                    dialog.talk("lo and behold...", "gray tabby", "siamie-neutral", false);
+                    dialog.talk("lo and behold...", "gray tabby", "siamie-neutral", true);
                     chamber.isEnabled = true;
                     break;
                 }
@@ -190,10 +215,17 @@ public class enterLab : MonoBehaviour
                     dialog.talk("who doesn't like surprises, am i right?", "gray tabby", "siamie-neutral", true);
                     break;
                 }
+                //make the music fade out
+                //then the glass starts to crack...
+            case 18: {
+                    dialog.talk("what's that?", "siamie", "siamie-neutral", false);
+                    break;
+                }
             default: {
                     dialog.gameObject.SetActive(false);
                     player.allowMove = true;
                     dialogStarted = false;
+                    fadeOutMusic = true;
                     break;
                 }
         }
