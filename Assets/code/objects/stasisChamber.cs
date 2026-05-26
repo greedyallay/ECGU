@@ -27,6 +27,8 @@ public class stasisChamberHandler : MonoBehaviour
             light2  = transform.Find("light2").GetComponent<Light2D>();
             sound  = transform.Find("sound").GetComponent<AudioSource>();
             previousState = false;
+            light1.enabled = isEnabled;
+            light2.enabled = isEnabled;
         }
 
         if(isEnabled != previousState) {

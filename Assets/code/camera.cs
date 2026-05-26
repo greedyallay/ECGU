@@ -57,9 +57,10 @@ public class camera : MonoBehaviour
             renderTexture.height = (int)gridSize.x;
             renderTexture.Create();
 
-            cam.orthographicSize = zoom * 5;
         }
 
+
+        cam.orthographicSize = zoom * 5;
 
 
         if (Input.GetKeyDown(KeyCode.L)) {

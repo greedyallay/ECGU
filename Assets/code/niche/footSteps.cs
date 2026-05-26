@@ -67,7 +67,10 @@ public class footSteps : MonoBehaviour
             walkingTime += Time.deltaTime;
             if(walkingTime > 0.35f / player.moveSpeedMultiplier) {
                 audioSource.volume = 0.15f;
-                audioSource.PlayOneShot(step);
+                if(player.allowMove) {
+                    audioSource.PlayOneShot(step);
+
+                }
                 walkingTime = 0f;
             }
         } else {

@@ -30,12 +30,9 @@ public class doorHandler : MonoBehaviour {
             source = transform.Find("audio").GetComponent<AudioSource>();
         }
         if(isTriggered != previousState) {
-            print("changing states");
             internallyTriggered = true;
             previousState = isTriggered;
         }
-        print("ïstriggered " + isTriggered);
-        print("internallytriggered " + internallyTriggered);
         if (!internallyTriggered) { return; }
 
         if (isTriggered) {
@@ -58,8 +55,6 @@ public class doorHandler : MonoBehaviour {
             }
         }
         else {
-            print("why");
-
             if (!hasTriggered) {
                 hasTriggered = true;
                 source.PlayOneShot(doorSlide);

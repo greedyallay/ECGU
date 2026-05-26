@@ -32,7 +32,6 @@ public class collideAudio : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision) {
         //make it so that only if this object has a higher speed than the other one it plays the audio to prevent doublt shit
         float impact = collision.relativeVelocity.magnitude;
-        print(impact/10);
         source.volume = (impact / 20) * volume;
         source.PlayOneShot(collisionSound);
 

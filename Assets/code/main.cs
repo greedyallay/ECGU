@@ -3,16 +3,17 @@ using UnityEngine;
 public class main : MonoBehaviour
 {
     public Transform crate;
+    public dialog dialog;
+    private float time;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        print("idkwtfimdoing");
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        time += Time.deltaTime;
         if (Input.GetMouseButtonDown(0) && false)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
