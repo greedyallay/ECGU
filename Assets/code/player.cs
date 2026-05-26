@@ -81,10 +81,6 @@ public class playerController : MonoBehaviour
 
     private bool mouseBehindPlayer = false;
 
-    public Transform bone;
-
-    public new footSteps audio;
-
     private Vector3 playerScale;
 
     private class Cache {
@@ -106,7 +102,7 @@ public class playerController : MonoBehaviour
 
     public bool allowMove = true;
 
-    public bool hasRifle = true;
+    public bool hasRifle = false;
 
     private bool previousFiringState = false;
 
@@ -170,9 +166,6 @@ public class playerController : MonoBehaviour
             print(angle);
         }
 
-        if(Input.GetKeyDown("z")) {
-            audio.landSound();
-        }
         if (player.mirror) {
             transform.localScale = new Vector3(
                 playerScale.x * -1f,
