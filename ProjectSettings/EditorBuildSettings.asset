@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/levels/tutorial.unity
+    guid: 1b0d2eacbc8990f479cd9f963ee8a49a
+  - enabled: 1
+    path: Assets/tests/gefikst meneertje.unity
+    guid: b558d7b491304ac4c96be898603d2beb
   m_configObjects:
     com.unity.adaptivePerformance.basic.provider_settings: {fileID: 11400000, guid: 5fe113b110d135540908b2eb498c8a33, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: ab53077a4b9bc1c468302c65552ee12e, type: 2}

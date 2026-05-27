@@ -106,6 +106,8 @@ public class playerController : MonoBehaviour
 
     private bool previousFiringState = false;
 
+    private bool hasMainItem = false;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

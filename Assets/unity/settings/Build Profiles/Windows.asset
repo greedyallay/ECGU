@@ -23,6 +23,9 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/levels/tutorial.unity
     m_guid: 1b0d2eacbc8990f479cd9f963ee8a49a
+  - m_enabled: 1
+    m_path: Assets/tests/gefikst meneertje.unity
+    m_guid: b558d7b491304ac4c96be898603d2beb
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:

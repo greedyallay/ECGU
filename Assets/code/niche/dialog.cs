@@ -45,13 +45,15 @@ public class dialog : MonoBehaviour
         }
 
 
-        if((int)dialogWriteProgress > oldLength) {
-            sound.pitch = Random.Range(0.8f, 1.2f);
-            sound.PlayOneShot(tick);
+        if ((int)dialogWriteProgress > oldLength) {
             oldLength = (int)dialogWriteProgress;
+
+            sound.pitch = Random.Range(0.8f, 1.2f);
+
+            sound.PlayOneShot(tick);
         }
 
-        if((int)dialogWriteProgress > fullText.Length) {
+        if ((int)dialogWriteProgress > fullText.Length) {
             finishedTyping = true;
         }
 ;
@@ -68,6 +70,7 @@ public class dialog : MonoBehaviour
         fullText = text;
         textSide = side;
         dialogWriteProgress = 0f;
+        oldLength = 0;
     }
 
     private void display(string name, string text, bool side) {

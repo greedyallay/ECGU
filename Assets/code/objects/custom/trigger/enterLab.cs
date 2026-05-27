@@ -24,11 +24,21 @@ public class enterLab : MonoBehaviour
 
     public AudioSource music;
 
+    public AudioClip glassCrack1;
+    public AudioClip glassCrack2;
+    public AudioClip glassCrack3;
+
+    public AudioClip glassBreak;
+
     private int dialogProgress = 0;
     private bool dialogStarted  = false;
 
     private float time = 0f;
 
+    private AudioSource sound;
+
+    public Transform evilCat;
+    public Transform siamie;
 
     //bullshit vairables
     private bool equipFlashlight;
@@ -43,6 +53,10 @@ public class enterLab : MonoBehaviour
     public bool waitForFinish = false;
 
     private bool fadeOutMusic = false;
+
+    private bool dropStasisChamber = false;
+
+    public bool fuckLore = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -55,6 +69,7 @@ public class enterLab : MonoBehaviour
         time += Time.deltaTime;
         if(anim == null) {
             anim = player.transform.Find("rig").GetComponent<Animator>();
+            sound = transform.Find("audio").GetComponent<AudioSource>() ;
         }
         if(dialogStarted) {
             handleDialog();
@@ -99,6 +114,7 @@ public class enterLab : MonoBehaviour
                 anim.speed = 1.3f;
                 anim.CrossFade("idle", .5f);
                 animateScared = false;
+                lastTime = 0f;
             }
         }
 
@@ -110,6 +126,34 @@ public class enterLab : MonoBehaviour
                 waitForFinish = false;
             }
         }
+
+        if (dropStasisChamber) {
+            return;
+            print("fast"); 
+            print(lastTime); 
+            if (lastTime == 0f) {
+                lastTime = time;
+                Rigidbody2D body = chamber.gameObject.GetComponent<Rigidbody2D>();
+                body.simulated = true;
+                chamber.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+                body.transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+            }
+            netTime = time - lastTime;
+            if (netTime > 0.5f) {
+                sound.PlayOneShot(glassBreak);
+                lastTime = 0f;
+            }
+            if (netTime > 1.3f) {
+                anim.CrossFade("idle", .5f);
+                lastTime = 0f;
+                dropStasisChamber = false;
+
+                //dialogProgress++;
+                //showDialog(dialogProgress);
+            }
+        }
+
+
     }
 
     void OnTriggerEnter2D(Collider2D other) {
@@ -124,10 +168,17 @@ public class enterLab : MonoBehaviour
     }
 
     void handleDialog() {
-        if (Input.GetMouseButtonDown(0) && canSkip) {
-            showDialog(dialogProgress);
-            dialogProgress++;
+        if(fuckLore) {
+            showDialog(22);
         }
+        else {
+            if (Input.GetMouseButtonDown(0) && canSkip) {
+                lastTime = 0f;
+                showDialog(dialogProgress);
+                dialogProgress++;
+            }
+        }
+
     }
 
     void showDialog(int progress) {
@@ -151,7 +202,7 @@ public class enterLab : MonoBehaviour
                     break;
                 }
             case 4: {
-                    dialog.talk("...                                      ", "siamie", "siamie-neutral", false);
+                    dialog.talk("...", "siamie", "siamie-neutral", false);
                     //canSkip = false;
                     equipFlashlight = true;
                     break;
@@ -174,12 +225,12 @@ public class enterLab : MonoBehaviour
                 }
             case 8: {
                     dialog.talk("lo and behold...", "gray tabby", "siamie-neutral", true);
+                    animateScared = true;
                     chamber.isEnabled = true;
                     break;
                 }
             case 9: {
                     dialog.talk("W- WHATS THAT", "siamie", "siamie-neutral", false);
-                    animateScared = true;
 
                     break;
                 }
@@ -213,12 +264,57 @@ public class enterLab : MonoBehaviour
                 }
             case 17: {
                     dialog.talk("who doesn't like surprises, am i right?", "gray tabby", "siamie-neutral", true);
+                    sound.PlayOneShot(glassCrack1);
                     break;
                 }
                 //make the music fade out
                 //then the glass starts to crack...
             case 18: {
                     dialog.talk("what's that?", "siamie", "siamie-neutral", false);
+                    break;
+                }
+            case 19: {
+                    dialog.talk("it appears as if something's breaking", "gray tabby", "siamie-neutral", true);
+                    sound.PlayOneShot(glassCrack2);
+                    break;
+                }
+            case 20: {
+                    dialog.talk("...", "siamie", "siamie-neutral", false);
+                    break;
+                }
+            case 21: {
+                    dialog.talk("OH WAIT", "siamie", "siamie-neutral", false);
+                    break;
+                }
+            case 22: {
+                    dialog.talk("IT'S THE STASIS CHAMBE~", "siamie", "siamie-neutral", false);
+                    sound.PlayOneShot(glassCrack3);
+                    lastTime = 0f;
+                    dropStasisChamber = true;
+
+                    Rigidbody2D body = chamber.gameObject.GetComponent<Rigidbody2D>();
+                    body.simulated = true;
+                    chamber.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+                    body.transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+                    break;
+                }
+            case 23: {
+                    dialog.talk("------", "siamie", "siamie-neutral", false);
+                    evilCat.gameObject.SetActive(true);
+                    camera.toFollow = evilCat;
+                    siamie.GetComponent<playerController>().enabled = false;
+                    siamie.transform.Find("rig").transform.Find("body-rig").transform.Find("head").GetComponent<lookAt>().enabled = false;
+                    Destroy(chamber.transform.Find("cat").gameObject);
+
+                    siamie.transform.Find("rig")
+                        .transform.Find("body-rig")
+                        .transform.Find("rightArmA")
+                        .transform.Find("rightArmB")
+                        .transform.Find("rightHand")
+                        .transform.Find("ak47").gameObject.SetActive(true);
+
+                    Animator animatorA = siamie.transform.Find("rig").GetComponent<Animator>();
+                    animatorA.CrossFade("riflefire", 0.5f);
                     break;
                 }
             default: {

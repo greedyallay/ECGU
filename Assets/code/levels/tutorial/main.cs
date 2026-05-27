@@ -4,7 +4,10 @@ public class main : MonoBehaviour
 {
     public Transform crate;
     public dialog dialog;
+
+    public screenFade fade;
     private float time;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,6 +23,7 @@ public class main : MonoBehaviour
 
             Instantiate(crate).transform.position = mousePos;
         }
+
     }
 
     void Awake() {
