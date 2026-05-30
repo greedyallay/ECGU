@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class main : MonoBehaviour
+public class tutorialMain : MonoBehaviour
 {
     public Transform crate;
     public dialog dialog;

@@ -230,12 +230,30 @@ public class playerController : MonoBehaviour
             player.box.bounds.min.y
         );
 
-        player.onFloor = Physics2D.Raycast(
+        player.onFloor = false;
+        
+        if(Physics2D.Raycast(
             new Vector2( player.box.bounds.center.x, player.box.bounds.min.y ),
             Vector2.down,
             0.05f,
             groundLayer
-        );
+        )) { player.onFloor = true; }
+
+        if (Physics2D.Raycast(
+            new Vector2(player.box.bounds.min.x, player.box.bounds.min.y),
+            Vector2.down,
+            0.05f,
+            groundLayer
+        )) { player.onFloor = true; }
+
+        if (Physics2D.Raycast(
+            new Vector2(player.box.bounds.max.x, player.box.bounds.min.y),
+            Vector2.down,
+            0.05f,
+            groundLayer
+        )) { player.onFloor = true; }
+
+
 
         player.againstWall = 0;
 
